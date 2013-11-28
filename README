@@ -6,7 +6,7 @@ README file for HPCServer Grid Scheduler
 
 	CentOS 6.x x86_64
 	Python 2.4.4
-	ZeroC Ice (IceGrid 3.4.0 component)
+	ZeroC Ice 3.4.0 
 
 
 HPCServer Grid Scheduler configuration step-by-step
