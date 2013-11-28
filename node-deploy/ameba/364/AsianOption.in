@@ -1,0 +1,60 @@
+function S = AssetPaths(S0,mu,sig,dt,steps,nsims)
+% Function to generate sample paths for assets assuming geometric
+% Brownian motion.
+%
+% S = AssetPaths(S0,mu,sig,dt,steps,nsims)
+%
+% Inputs: S0 - stock price
+%       : mu - expected return
+%       : sig - volatility
+%       : dt - size of time steps
+%       : steps - number of time steps to calculate
+%       : nsims - number of simulation paths to generate
+%
+% Output: S - a matrix where each column represents a simulated
+%             asset price path.
+%
+% Notes: This code focuses on details of the implementation of the
+%        Monte-Carlo algorithm.
+%        It does not contain any programatic essentials such as error
+%        checking.
+%        It does not allow for optional/default input arguments.
+%        It is not optimized for memory efficiency or speed.
+
+% calculate the drift
+nu = mu - sig*sig/2;
+
+% Generate potential paths
+S = S0*[ones(1,nsims); ...
+            cumprod(exp(nu*dt+sig*sqrt(dt)*randn(steps,nsims)),1)]; 
+endfunction
+
+
+% Script to price an Asian option using a monte-carlo approach.
+
+% S0       Price of underlying today
+% X        Strike at expiry
+% mu       expected return
+% sig      expected vol.
+% r        Risk free rate
+% dt       time steps
+% etime    days to expiry
+
+%PATTERN
+
+T = dt*etime; % years to expiry
+
+nruns = 100000; % Number of simulated paths
+
+% Generate potential future asset paths
+S = AssetPaths(S0,mu,sig,dt,etime,nruns);
+
+% calculate the payoff for each path for a Put
+PutPayoffT = max(X-mean(S),0);
+
+% calculate the payoff for each path for a Call
+CallPayoffT = max(mean(S)-X,0);
+
+% discount back
+putPrice = mean(PutPayoffT)*exp(-r*T)
+callPrice = mean(CallPayoffT)*exp(-r*T)  

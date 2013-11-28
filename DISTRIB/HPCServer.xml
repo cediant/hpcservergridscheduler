@@ -1,0 +1,37 @@
+<icegrid>
+    <application name="HPCServer" import-default-templates="true">
+        <replica-group id="HPCServerExecutor">
+            <load-balancing type="round-robin" />
+            <object identity="HPCServerServant" />
+        </replica-group>
+        <server-template id="HPCServerServantInstance">
+            <parameter name="ncpus" />
+            <server id="HPCServer-${node}" exe="./server.py" activation="on-demand" pwd="${server.distrib}">
+                <distrib />
+                <properties>
+		    <property name="Ice.MessageSizeMax" value="20000"/>
+                    <property name="SchedulerType" value="serial" />
+                    <property name="Cpus" value="${ncpus}"/>
+                    <property name="EXEHOME" value="/home/executor"/>
+                    <property name="MCRROOT" value="mcr/v73"/>
+                    <property name="AMEBADIR" value="ameba"/>
+                    <property name="ReportMail" value="jmgarcia@cediant.es"/>
+                    <property name="AmebaTimeout" value="5" />
+                    <property name="JobTimeout" value="3" />
+		    <property name="LogFile" value="/home/executor/logs/HPCServer.log" />
+		    <property name="LogLevel" value="DEBUG" />
+                </properties>
+                <adapter name="HPCServerAdapter" register-process="true" endpoints="tcp" replica-group="HPCServerExecutor" />
+            </server>
+        </server-template>
+	<node name="host001">
+            <server-instance template="IcePatch2" directory="/home/executor/DISTRIB/HPCServer" />
+        </node>
+	<node name="host003">
+            <server-instance template="HPCServerServantInstance" ncpus="2"/>
+        </node>
+	<node name="host004">
+            <server-instance template="HPCServerServantInstance" ncpus="2"/>
+        </node>
+    </application>
+</icegrid>
