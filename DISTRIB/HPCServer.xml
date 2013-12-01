@@ -15,7 +15,7 @@
                     <property name="EXEHOME" value="/home/executor"/>
                     <property name="MCRROOT" value="mcr/v73"/>
                     <property name="AMEBADIR" value="ameba"/>
-                    <property name="ReportMail" value="jmgarcia@cediant.es"/>
+                    <property name="ReportMail" value="info@cediant.es"/>
                     <property name="AmebaTimeout" value="5" />
                     <property name="JobTimeout" value="3" />
 		    <property name="LogFile" value="/home/executor/logs/HPCServer.log" />
