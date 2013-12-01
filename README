@@ -187,7 +187,8 @@ simple_1380107850 5.56776213646 5.56705594063 0.0 False False
 Notes
 -----
 
-This sample of IceGrid from ZeroC Ice shows the execution of Monte Carlo Asian Pricing simulation
-using Octave. The code is ready to set up different Octave enviroments.
+This sample of IceGrid from ZeroC Ice shows the execution of Monte Carlo Asian 
+Pricing simulation using Octave. The code is ready to set up different 
+Octave enviroments.
 
 If you have any questions, please feel free to send an to <info@cediant.es>
